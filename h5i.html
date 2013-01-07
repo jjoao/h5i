@@ -1,0 +1,166 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="SHORTCUT ICON" href="favicon.ico" type="image/x-icon" />
+
+<meta name="description" content="Historia em 5 imagens" />
+<meta name="keywords" content="jquery, image gallery, delegate" />
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+
+var w="?";
+var maxi=6;
+var k;
+var cn=1;
+
+function prompt_word()
+{ w=prompt("?",w);
+  if (w!=null && w!="") { document.getElementById("kk").innerHTML=w; }
+}
+
+
+function prompt_col()
+{ cn=prompt("Problem number:",cn);
+  set_col(cn);
+}
+
+function set_col(cn)
+{
+  $('#t1').attr('src',"IMG/"+ cn + "/1.jpg");
+  $('#t2').attr('src',"IMG/"+ cn + "/2.jpg");
+  $('#t3').attr('src',"IMG/"+ cn + "/3.jpg");
+  $('#t4').attr('src',"IMG/"+ cn + "/4.jpg");
+  $('#t5').attr('src',"IMG/"+ cn + "/5.jpg");
+}
+
+
+document.onkeyup = KeyCheck;       
+/*function KeyCheck() {
+   var KeyID = event.keyCode;
+   switch(KeyID) {
+      break;
+   }
+} */
+
+function KeyCheck(e) {
+   var KeyID = (window.event) ? event.keyCode : e.keyCode;
+//   var xxx=prompt("Key:",KeyID);
+   document.getElementById("panel").innerHTML= "<img id='largeImage'\/>";
+   switch(KeyID) {
+      case 48:  //0 = empty image
+         document.getElementById("panel").innerHTML= "<strong id='largeText'>"+w+"</strong>";
+      break; 
+
+      case 49: 
+      // document.getElementById("largeImage").src = document.getElementById("t1").src;
+      // $('#largeImage').attr('src', $('#t1').attr('src'));
+         document.getElementById("largeImage").src = $('#t1').attr('src');
+      break; 
+
+      case 50: 
+         document.getElementById("largeImage").src = document.getElementById("t2").src;
+      break; 
+
+      case 51: 
+         document.getElementById("largeImage").src = document.getElementById("t3").src;
+      break; 
+
+      case 52: 
+         document.getElementById("largeImage").src = document.getElementById("t4").src;
+      break; 
+
+      case 53: 
+         document.getElementById("largeImage").src = document.getElementById("t5").src;
+      break; 
+
+      case 54: 
+         document.getElementById("largeImage").src = document.getElementById("t6").src;
+      break; 
+
+      case 55: 
+         document.getElementById("panel").innerHTML= "<strong id='largeText'>www</strong>";
+      break; 
+
+      case 87: 
+         document.getElementById("panel").innerHTML= "<strong id='largeText'>"+w+"</strong>";
+      break;
+
+      case 38: 
+         cn = (cn % maxi) + 1; set_col(cn);
+      break;
+
+      case 40: 
+         cn = ((cn+maxi-2) % maxi) + 1; set_col(cn);
+      break;
+      case 66: 
+         document.getElementById("panel").innerHTML= "<strong id='largeText'>ccc</strong>";
+      break; 
+
+/*    case 17: document.Form1.KeyName.value = "Ctrl"; 
+      case 18:  "Alt"; 
+      case 19:  "Pause"; 
+      case 37:  "Arrow Left"; 
+      case 38:  "Arrow Up"; 
+      case 39:  "Arrow Right"; 
+      case 40:  "Arrow Down";  */
+   }
+}
+
+</script>
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+<title>História em 5 imagens</title>
+</head>
+<body> 
+
+<div id="panel"><img id='largeImage'\/></div>
+
+<div id="changedir">
+  <img id="t0" src="IMG/emblem-photos.png" alt="1" />
+</div>
+
+<div id="thumbs">
+  <img src="IMG/0/1.jpg" alt="" id="t1" />
+  <img src="IMG/0/2.jpg" alt="" id="t2" />
+  <img src="IMG/0/3.jpg" alt="" id="t3" />
+  <img src="IMG/0/4.jpg" alt="" id="t4" />
+  <img src="IMG/0/5.jpg" alt="" id="t5" />
+  <img src="IMG/0/6.jpg" alt="" id="t6" />
+<span id="word"> <strong id='kk'></strong> </span>
+</div>
+
+
+<input type="button" class="ri" id="k" onclick="prompt_word()" value="↴" />
+<input type="button" class="ri" id="c" onclick="prompt_col()" value="=" />
+<!--form name="Form1"> 
+<input type="text" name="KeyName" value="" />
+</form-->
+
+<script>
+
+$('#thumbs').delegate('img','click', function(){
+   document.getElementById("panel").innerHTML= 
+       "<img id='largeImage'\/>";
+   document.getElementById("largeImage").setAttribute('src',
+       $(this).attr('src')); 
+});
+
+$('#word').delegate('strong','click', function(){
+   document.getElementById("panel").innerHTML= 
+       "<strong id='largeText'>"+w+"</strong>";
+});
+
+$('#changedir').delegate('img','click', function(){
+    set_col(Math.round(0.5 + Math.random()*maxi));
+});
+
+
+
+
+	/* $('#largeImage').attr('src',$(this).attr('src')); */
+    /*  k=document.getElementById('k').value;            */
+</script>
+
+</body>
+</html>
